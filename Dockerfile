@@ -8,7 +8,6 @@ WORKDIR /app
 # Copy local code to the container image.
 COPY pom.xml .
 COPY mvnw .
-COPY .mvn .mvn
 COPY . ./
 
 # Build the app.
