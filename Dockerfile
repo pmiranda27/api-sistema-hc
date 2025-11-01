@@ -9,8 +9,8 @@ WORKDIR /app
 COPY . ./
 
 # Build the app.
-RUN chmod +x mvn
-RUN mvn -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
+RUN chmod +x mvnw
+RUN ./mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
 
 # Run the quarkus app 
 CMD ["sh", "-c", "java -jar target/quarkus-app/quarkus-run.jar"]
