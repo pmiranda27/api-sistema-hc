@@ -14,7 +14,6 @@ public class Paciente {
     private String cpf;
     private String telefone;
     private Endereco endereco;
-    private Prescricao prescricao;
 
     //CONSTRUTORES
     public Paciente(){
@@ -84,10 +83,6 @@ public class Paciente {
         return endereco;
     }
 
-    public Prescricao getPrescricao() {
-        return prescricao;
-    }
-
     //SETTERS
     public void setId(int id) {
         this.id = id;
@@ -137,9 +132,6 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    public void setPrescricao(Prescricao prescricao) {
-        this.prescricao = prescricao;
-    }
 
 
     // Retorna as informações do paciente de forma formatada
