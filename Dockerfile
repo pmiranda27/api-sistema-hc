@@ -7,6 +7,8 @@ WORKDIR /app
 
 # Copy local code to the container image.
 COPY . ./
+# Copy mvnw to the container
+COPY mvnw .
 
 # Build the app.
 RUN chmod +x mvnw
