@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy local code to the container image.
 COPY . ./
-COPY pom.xml ./
+COPY pom.xml .
 
 RUN mvn -N io.takari:maven:wrapper
 
