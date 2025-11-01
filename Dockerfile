@@ -6,9 +6,9 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Copy local code to the container image.
-COPY pom.xml .
-COPY mvnw .
 COPY . ./
+
+RUN mvn -N io.takari:maven:wrapper
 
 # Build the app.
 RUN chmod +x mvnw
