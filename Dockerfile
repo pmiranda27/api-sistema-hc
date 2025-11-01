@@ -6,8 +6,11 @@ FROM maven:3.9-eclipse-temurin-21
 WORKDIR /app
 
 # Copy local code to the container image.
-COPY . ./
+COPY . .
 COPY pom.xml .
+
+RUN echo "=== Conteúdo do diretório /app ==="
+RUN ls -la
 
 RUN mvn -N io.takari:maven:wrapper
 
