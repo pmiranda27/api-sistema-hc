@@ -7,10 +7,11 @@ WORKDIR /app
 
 # Copy local code to the container image.
 COPY . .
-COPY pom.xml .
 
 RUN echo "=== Conteúdo do diretório /app ==="
 RUN ls -la
+
+COPY pom.xml .
 
 RUN mvn -N io.takari:maven:wrapper
 
