@@ -8,12 +8,6 @@ WORKDIR /app
 # Copy local code to the container image.
 COPY . ./
 
-#COPY pom.xml ./
-#COPY mvnw ./
-#COPY .mvn/ .mvn/
-#COPY src/ ./src/
-
-RUN mvn -N io.takari:maven:wrapper
 
 # Build the app.
 RUN chmod +x mvnw
