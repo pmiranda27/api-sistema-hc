@@ -29,8 +29,21 @@ public class InstituicaoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response selecionarInstituicaoRs() throws ClassNotFoundException, SQLException {
         try {
-            ArrayList<Instituicao> listaInstituicoes = (ArrayList<Instituicao>) instituicaoBO.selecionarBO();
+            ArrayList<Instituicao> listaInstituicoes = instituicaoBO.selecionarBO();
             return Response.ok(listaInstituicoes).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionarInstituicaoRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+        try {
+            Instituicao instituicao = instituicaoBO.selecionarPorIdBO(id);
+            return Response.ok(instituicao).build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);

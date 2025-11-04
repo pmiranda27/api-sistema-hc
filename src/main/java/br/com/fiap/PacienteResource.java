@@ -32,14 +32,41 @@ public class PacienteResource {
         }
     }
 
+    @GET
+    @Path("/rg/{rg}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionarIdPacientePorRgRs(@PathParam("rg") String rg) throws ClassNotFoundException, SQLException {
+        try {
+            int idPaciente =  pacienteBO.selecionarIdPorRgBO(rg);
+            return Response.ok(idPaciente).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionarPacientePorIdRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+        try {
+            Paciente paciente =  pacienteBO.selecionarPorId(id);
+            return Response.ok(paciente).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response cadastrarPacienteRs(Paciente paciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
         try {
-            pacienteBO.cadastrarBO(paciente);
-            UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-            builder.path(paciente.getRg());
-            return Response.created(builder.build()).build();
+            int novo_id_paciente = pacienteBO.cadastrarBO(paciente);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(novo_id_paciente)
+                    .build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);
@@ -51,6 +78,45 @@ public class PacienteResource {
     public Response atualizarPacienteRs(Paciente paciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
         try {
             pacienteBO.atualizarBO(paciente);
+            return Response.ok().build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @PUT
+    @Path("/telefone")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response atualizarTelefonePacienteRs(Paciente paciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+        try {
+            pacienteBO.atualizarTelefoneBO(paciente);
+            return Response.ok().build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @PUT
+    @Path("/altura")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response atualizarAlturaPacienteRs(Paciente paciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+        try {
+            pacienteBO.atualizarAlturaBO(paciente);
+            return Response.ok().build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @PUT
+    @Path("/peso")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response atualizarPesoPacienteRs(Paciente paciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+        try {
+            pacienteBO.atualizarPesoBO(paciente);
             return Response.ok().build();
         }
         catch (Exception e) {

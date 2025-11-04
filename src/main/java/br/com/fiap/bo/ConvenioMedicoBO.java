@@ -21,10 +21,16 @@ public class ConvenioMedicoBO {
     public ArrayList<ConvenioMedico> selecionarBO() throws ClassNotFoundException, SQLException {
         convenioMedicoDAO = new ConvenioDAO();
 
-        return (ArrayList<ConvenioMedico>) convenioMedicoDAO.selecionarConvenios(conexao);
+        return convenioMedicoDAO.selecionarConvenios(conexao);
     }
 
-    public String cadastrarBO(ConvenioMedico convenioMedico) throws ClassNotFoundException, SQLException, ParseException {
+    public ConvenioMedico selecionarPorIdPacienteBO(int id) throws ClassNotFoundException, SQLException {
+        convenioMedicoDAO = new ConvenioDAO();
+
+        return convenioMedicoDAO.selecionarConvenioPorIdPaciente(id, conexao);
+    }
+
+    public int cadastrarBO(ConvenioMedico convenioMedico) throws ClassNotFoundException, SQLException, ParseException {
         convenioMedicoDAO = new ConvenioDAO();
 
         return convenioMedicoDAO.cadastrarConvenio(convenioMedico, conexao);

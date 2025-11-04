@@ -22,9 +22,20 @@ public class PacienteBO {
         return (ArrayList<Paciente>) pacienteDAO.selecionarPacientes(conexao);
     }
 
-    public boolean cadastrarBO(Paciente paciente) throws ClassNotFoundException, SQLException {
+    public int selecionarIdPorRgBO(String rg) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
 
+        return  pacienteDAO.selecionarIdPorRgPaciente(rg, conexao);
+    }
+
+    public Paciente selecionarPorId(int id) throws ClassNotFoundException, SQLException {
+        pacienteDAO = new PacienteDAO();
+
+        return  pacienteDAO.selecionarPacientePorId(id, conexao);
+    }
+
+    public int cadastrarBO(Paciente paciente) throws ClassNotFoundException, SQLException {
+        pacienteDAO = new PacienteDAO();
         return pacienteDAO.cadastrarPaciente(paciente, conexao);
     }
 
@@ -32,6 +43,24 @@ public class PacienteBO {
         pacienteDAO = new PacienteDAO();
 
         pacienteDAO.atualizarPaciente(paciente, conexao);
+    }
+
+    public void atualizarTelefoneBO (Paciente paciente) throws ClassNotFoundException, SQLException {
+        pacienteDAO = new PacienteDAO();
+
+        pacienteDAO.atualizarTelefonePaciente(paciente, conexao);
+    }
+
+    public void atualizarAlturaBO (Paciente paciente) throws ClassNotFoundException, SQLException {
+        pacienteDAO = new PacienteDAO();
+
+        pacienteDAO.atualizarAlturaPaciente(paciente, conexao);
+    }
+
+    public void atualizarPesoBO (Paciente paciente) throws ClassNotFoundException, SQLException {
+        pacienteDAO = new PacienteDAO();
+
+        pacienteDAO.atualizarPesoPaciente(paciente, conexao);
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {

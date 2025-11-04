@@ -19,11 +19,13 @@ public class ContaPacienteDAO {
     }
 
     // Insert
-    public String cadastrarContaPaciente(ContaPaciente conta, Connection conexao) throws SQLException, ParseException, ClassNotFoundException {
+    public int cadastrarContaPaciente(ContaPaciente conta, Connection conexao) throws SQLException, ParseException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Insert into Conta_Paciente values (?, ?, ?, ?, ?)");
 
-        stmt.setInt(1, gerarNovoId(conexao));
+        int novoId = gerarNovoId(conexao);
+
+        stmt.setInt(1, novoId);
         stmt.setString(2, conta.getEmail());
         stmt.setString(3, conta.getSenha());
         stmt.setInt(4, conta.getPaciente().getId());
@@ -37,7 +39,7 @@ public class ContaPacienteDAO {
         stmt.execute();
         stmt.close();
 
-        return "Conta cadastrada com sucesso!";
+        return novoId;
     }
 
     // Delete
@@ -81,6 +83,41 @@ public class ContaPacienteDAO {
         return "Conta atualizada com sucesso!";
     }
 
+    public boolean atualizarEmailContaPaciente(ContaPaciente conta, Connection conexao) throws SQLException {
+        PreparedStatement stmt = conexao.prepareStatement
+                ("Update Conta_Paciente set ds_email = ? where id_conta_paciente = ?");
+
+        System.out.println("EMAILLL: " +conta.getEmail());
+        stmt.setString(1, conta.getEmail());
+        System.out.println("Id: " +conta.getId());
+        stmt.setInt(2, conta.getId());
+
+        int linhasAfetadas = stmt.executeUpdate();
+        stmt.close();
+        if (linhasAfetadas == 0){
+            System.out.println("Nao acho");
+            throw new SQLException("Nenhum registro encontrado.", "02000", 20001);
+        }
+
+        return true;
+    }
+
+    public boolean atualizarSenhaContaPaciente(ContaPaciente conta, Connection conexao) throws SQLException {
+        PreparedStatement stmt = conexao.prepareStatement
+                ("Update Conta_Paciente set ds_senha = ? where id_conta_paciente = ?");
+
+        stmt.setString(1, conta.getSenha());
+        stmt.setInt(2, conta.getId());
+
+        int linhasAfetadas = stmt.executeUpdate();
+        stmt.close();
+        if (linhasAfetadas == 0){
+            throw new SQLException("Nenhum registro encontrado.", "02000", 20001);
+        }
+
+        return true;
+    }
+
     private int gerarNovoId(Connection conexao) throws SQLException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement("select MAX(id_conta_paciente) from Conta_Paciente");
 
@@ -88,7 +125,7 @@ public class ContaPacienteDAO {
 
         int ultimoId = 0;
         while (rs.next()) {
-            ultimoId = rs.getInt(1); // pega o id da linha atual
+            ultimoId = rs.getInt(1);
         }
 
         stmt.close();
@@ -96,7 +133,7 @@ public class ContaPacienteDAO {
     }
 
     // Select
-    public ContaPaciente selecionarContaPorEmail(String email, Connection conexao) throws SQLException, ClassNotFoundException {
+    public ContaPaciente selecionarContaPorEmail(Connection conexao, String email) throws SQLException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement("select * from Conta_Paciente where ds_email = ?");
 
         stmt.setString(1, email);
@@ -110,7 +147,7 @@ public class ContaPacienteDAO {
             conta.setEmail(rs.getString(2));
             conta.setSenha(rs.getString(3));
             conta.setPaciente(pacienteDAO.selecionarPacientePorId(rs.getInt(4), conexao));
-            conta.setConvenioMedico(convenioDAO.selecionarConvenioPorId(5, conexao));
+            conta.setConvenioMedico(convenioDAO.selecionarConvenioPorId(rs.getInt(5), conexao));
         }
 
         return conta;
@@ -151,6 +188,26 @@ public class ContaPacienteDAO {
             conta.setSenha(rs.getString(3));
             conta.setPaciente(pacienteDAO.selecionarPacientePorId(rs.getInt(4), conexao));
             conta.setConvenioMedico(convenioDAO.selecionarConvenioPorId(5, conexao));
+        }
+
+        return conta;
+    }
+    // Select
+    public ContaPaciente selecionarContaPorId(Connection conexao, int id) throws SQLException, ClassNotFoundException {
+        PreparedStatement stmt = conexao.prepareStatement("select * from Conta_Paciente where id_conta_paciente = ?");
+
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        ContaPaciente conta = null;
+        while (rs.next()){
+            conta = new ContaPaciente();
+            conta.setId(rs.getInt(1));
+            conta.setEmail(rs.getString(2));
+            conta.setSenha(rs.getString(3));
+            conta.setPaciente(pacienteDAO.selecionarPacientePorId(rs.getInt(4), conexao));
+            conta.setConvenioMedico(convenioDAO.selecionarConvenioPorId(rs.getInt(5), conexao));
         }
 
         return conta;

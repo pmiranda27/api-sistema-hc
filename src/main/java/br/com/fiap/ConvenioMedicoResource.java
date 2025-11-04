@@ -1,12 +1,7 @@
 package br.com.fiap;
 
-import br.com.fiap.beans.ContaPaciente;
 import br.com.fiap.beans.ConvenioMedico;
-import br.com.fiap.beans.Paciente;
-import br.com.fiap.bo.ContaPacienteBO;
 import br.com.fiap.bo.ConvenioMedicoBO;
-import br.com.fiap.bo.PacienteBO;
-import br.com.fiap.dao.PacienteDAO;
 import br.com.fiap.excecoes.RequestsExcecoes;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -29,8 +24,22 @@ public class ConvenioMedicoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response selecionaConvenioMedicoRs() throws ClassNotFoundException, SQLException {
         try {
-            ArrayList<ConvenioMedico> listaConvenios = (ArrayList<ConvenioMedico>) convenioMedicoBO.selecionarBO();
+            ArrayList<ConvenioMedico> listaConvenios = convenioMedicoBO.selecionarBO();
             return Response.ok(listaConvenios).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @GET
+    @Path("/paciente/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionaConvenioMedicoPorIdPacienteRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+        try {
+            ConvenioMedico convenio = convenioMedicoBO.selecionarPorIdPacienteBO(id);
+            if(convenio == null) return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.ok(convenio).build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);
@@ -41,10 +50,11 @@ public class ConvenioMedicoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response cadastrarConvenioMedicoRs(ConvenioMedico convenioMedico, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException, ParseException {
         try {
-            convenioMedicoBO.cadastrarBO(convenioMedico);
-            UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-            builder.path(convenioMedico.getNumeroCarteirinha());
-            return Response.created(builder.build()).build();
+            int novo_id_convenio = convenioMedicoBO.cadastrarBO(convenioMedico);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(novo_id_convenio)
+                    .build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);

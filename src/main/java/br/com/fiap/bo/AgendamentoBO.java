@@ -23,10 +23,10 @@ public class AgendamentoBO {
     public ArrayList<Agendamento> selecionarBO(int id) throws ClassNotFoundException, SQLException {
         agendamentoDAO = new AgendamentoDAO();
 
-        return (ArrayList<Agendamento>) agendamentoDAO.selecionarAgendamentosPorPaciente(id, conexao);
+        return agendamentoDAO.selecionarAgendamentosPorPaciente(id, conexao);
     }
 
-    public String cadastrarBO(Agendamento agendamento) throws ClassNotFoundException, SQLException, ParseException {
+    public int cadastrarBO(Agendamento agendamento) throws ClassNotFoundException, SQLException, ParseException {
         agendamentoDAO = new AgendamentoDAO();
 
         return agendamentoDAO.cadastrarAgendamento(agendamento, conexao);
@@ -38,9 +38,9 @@ public class AgendamentoBO {
         agendamentoDAO.atualizarAgendamento(agendamento, conexao);
     }
 
-    public void deletarBO(int id)throws ClassNotFoundException, SQLException {
+    public boolean deletarBO(int id)throws ClassNotFoundException, SQLException {
         agendamentoDAO = new AgendamentoDAO();
 
-        agendamentoDAO.deletarAgendamento(id, conexao);
+        return agendamentoDAO.deletarAgendamento(id, conexao);
     }
 }

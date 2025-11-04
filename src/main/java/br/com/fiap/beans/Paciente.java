@@ -8,8 +8,8 @@ public class Paciente {
     private String nomePaciente;
     private int idade;
     private String sexo;
-    private double altura;
-    private double peso;
+    private float altura;
+    private float peso;
     private String rg;
     private String cpf;
     private String telefone;
@@ -19,7 +19,7 @@ public class Paciente {
     public Paciente(){
 
     }
-    public Paciente(String nomePaciente, int idade, String sexo, double altura, double peso, String rg, String cpf, String telefone, Endereco endereco) {
+    public Paciente(String nomePaciente, int idade, String sexo, float altura, float peso, String rg, String cpf, String telefone, Endereco endereco) {
         this.nomePaciente = nomePaciente;
         this.idade = idade;
         this.sexo = sexo;
@@ -59,11 +59,11 @@ public class Paciente {
         return sexo;
     }
 
-    public double getAltura() {
+    public float getAltura() {
         return altura;
     }
 
-    public double getPeso() {
+    public float getPeso() {
         return peso;
     }
 
@@ -100,7 +100,7 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(float altura) {
         // se o valor do parametro altura for maior que 100, ele foi colocado em centimetros
             // o atributo é medido em metros
         if (altura > 100) {
@@ -112,7 +112,7 @@ public class Paciente {
         }
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(float peso) {
         this.peso = peso;
     }
 

@@ -21,14 +21,15 @@ public class RelatorioMedicoDAO {
     }
 
     // Insert
-    public String cadastrarRelatorio(RelatorioMedico relatorio, Connection conexao) throws SQLException, ClassNotFoundException {
+    public int cadastrarRelatorio(RelatorioMedico relatorio, Connection conexao) throws SQLException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Insert into Relatorio_Medico values (?, ?, ?, ?, ?)");
 
-        java.util.Date dataAgora = new java.util.Date();
-        java.sql.Date dataFormatadaSQL = new java.sql.Date(dataAgora.getTime());
+        int novoId = gerarNovoId(conexao);
 
-        stmt.setInt(1, gerarNovoId(conexao));
+        java.sql.Date dataFormatadaSQL = new java.sql.Date(relatorio.getDataRelatorio().getTime());
+
+        stmt.setInt(1, novoId);
         stmt.setDate(2, dataFormatadaSQL);
         stmt.setString(3, relatorio.getDescricaoRelatorio());
         stmt.setInt(4, relatorio.getMedicoRelator().getId());
@@ -37,7 +38,7 @@ public class RelatorioMedicoDAO {
         stmt.execute();
         stmt.close();
 
-        return "Relatório cadastrado com sucesso!";
+        return novoId;
     }
 
     // Delete

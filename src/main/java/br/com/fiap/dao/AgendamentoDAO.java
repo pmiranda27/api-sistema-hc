@@ -21,14 +21,16 @@ public class AgendamentoDAO {
     }
 
     // Insert
-    public String cadastrarAgendamento(Agendamento agendamento, Connection conexao) throws SQLException, ParseException, ClassNotFoundException {
+    public int cadastrarAgendamento(Agendamento agendamento, Connection conexao) throws SQLException, ParseException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Insert into Agendamento values (?, ?, ?, ?, ?, ?)");
 
         java.util.Date dataAgora = new java.util.Date();
         java.sql.Date dataFormatadaSQL = new java.sql.Date(dataAgora.getTime());
 
-        stmt.setInt(1, gerarNovoId(conexao));
+        int novoId = gerarNovoId(conexao);
+
+        stmt.setInt(1, novoId);
         stmt.setDate(2, dataFormatadaSQL);
         stmt.setString(3, agendamento.getHorario());
         stmt.setInt(4, agendamento.getMedicoResponsavel().getId());
@@ -38,11 +40,11 @@ public class AgendamentoDAO {
         stmt.execute();
         stmt.close();
 
-        return "Agendamento cadastrado com sucesso!";
+        return novoId;
     }
 
     // Delete
-    public String deletarAgendamento (int id, Connection conexao) throws SQLException, ClassNotFoundException {
+    public boolean deletarAgendamento (int id, Connection conexao) throws SQLException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Delete from Agendamento where id_agendamento = ?");
 
@@ -54,7 +56,7 @@ public class AgendamentoDAO {
             throw new SQLException("Nenhum registro encontrado.", "02000", 20001);
         }
 
-        return "Agendamento deletado com sucesso!";
+        return true;
     }
 
     // Delete

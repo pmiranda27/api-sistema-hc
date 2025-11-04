@@ -20,7 +20,7 @@ public class InstituicaoBO {
     public ArrayList<Instituicao> selecionarBO() throws ClassNotFoundException, SQLException {
         instituicaoDAO = new InstituicaoDAO();
 
-        return (ArrayList<Instituicao>) instituicaoDAO.selecionarInstituicoes(conexao);
+        return instituicaoDAO.selecionarInstituicoes(conexao);
     }
 
     public Instituicao selecionarPorIdBO(int id) throws ClassNotFoundException, SQLException {

@@ -29,8 +29,21 @@ public class MedicoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response selecionarMedicosRs() throws ClassNotFoundException, SQLException {
         try {
-            ArrayList<Medico> listaMedicos = (ArrayList<Medico>) medicoBO.selecionarBO();
+            ArrayList<Medico> listaMedicos = medicoBO.selecionarBO();
             return Response.ok(listaMedicos).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionarMedicoPorIdRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+        try {
+            Medico medico = medicoBO.selecionarPorIdBO(id);
+            return Response.ok(medico).build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);

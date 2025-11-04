@@ -18,7 +18,7 @@ public class ConvenioDAO {
     }
 
     // Insert
-    public String cadastrarConvenio(ConvenioMedico convenio, Connection conexao) throws SQLException, ClassNotFoundException {
+    public int cadastrarConvenio(ConvenioMedico convenio, Connection conexao) throws SQLException, ClassNotFoundException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Insert into Convenio values (?, ?, ?, ?, ?, ?)");
 
@@ -48,7 +48,7 @@ public class ConvenioDAO {
             contaPacienteDAO.atualizarContaPaciente(contaPaciente, conexao);
         }
 
-        return "Convênio Cadastrado com sucesso!";
+        return novoId;
     }
 
     // Delete
@@ -162,8 +162,9 @@ public class ConvenioDAO {
             convenio.setNumeroCarteirinha(rs.getString(3));
             convenio.setDataInicio(rs.getDate(4));
             convenio.setDataValidade(rs.getDate(5));
+            convenio.setIdPaciente(rs.getInt(6));
+            return convenio;
         }
-        return convenio;
     }
 
     // Select

@@ -19,17 +19,19 @@ public class PacienteDAO {
     }
 
     // Insert
-    public boolean cadastrarPaciente(Paciente paciente, Connection conexao) throws SQLException, ClassNotFoundException {
+    public int cadastrarPaciente(Paciente paciente, Connection conexao) throws SQLException, ClassNotFoundException {
         Endereco enderecoPaciente = paciente.getEndereco();
         String numero = Integer.toString(enderecoPaciente.getNumero());
 
         float alturaFloat = (float) paciente.getAltura();
         float pesoFloat = (float) paciente.getPeso();
 
+        int novoId = gerarNovoId(conexao);
+
         PreparedStatement stmt = conexao.prepareStatement
             ("Insert into Paciente (id_paciente, num_tel, ds_endereco, nm_paciente, num_idade, ds_sexo_paciente, num_altura, num_peso, ds_rg, ds_cpf) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        stmt.setInt(1, gerarNovoId(conexao));
+        stmt.setInt(1, novoId);
         stmt.setString(2, paciente.getTelefone());
         stmt.setString(3, enderecoPaciente.getLogradouro() + " " + numero + " — " + enderecoPaciente.getBairro() + ", " + enderecoPaciente.getCidade() + " - " + enderecoPaciente.getCep());
         stmt.setString(4, paciente.getNomePaciente());
@@ -44,7 +46,7 @@ public class PacienteDAO {
 
         stmt.close();
 
-        return true;
+        return novoId;
     }
 
     // Delete
@@ -102,6 +104,54 @@ public class PacienteDAO {
         }
 
         return "Paciente atualizado com sucesso!";
+    }
+
+    public boolean atualizarTelefonePaciente(Paciente paciente, Connection conexao) throws SQLException {
+        PreparedStatement stmt = conexao.prepareStatement
+                ("Update Paciente set num_tel = ? where id_paciente = ?");
+
+        stmt.setString(1, paciente.getTelefone());
+        stmt.setInt(2, paciente.getId());
+
+        int linhasAfetadas = stmt.executeUpdate();
+        stmt.close();
+        if (linhasAfetadas == 0){
+            throw new SQLException("Nenhum registro encontrado.", "02000", 20001);
+        }
+
+        return true;
+    }
+
+    public boolean atualizarAlturaPaciente(Paciente paciente, Connection conexao) throws SQLException {
+        PreparedStatement stmt = conexao.prepareStatement
+                ("Update Paciente set num_altura = ? where id_paciente = ?");
+
+        stmt.setFloat(1, paciente.getAltura());
+        stmt.setInt(2, paciente.getId());
+
+        int linhasAfetadas = stmt.executeUpdate();
+        stmt.close();
+        if (linhasAfetadas == 0){
+            throw new SQLException("Nenhum registro encontrado.", "02000", 20001);
+        }
+
+        return true;
+    }
+
+    public boolean atualizarPesoPaciente(Paciente paciente, Connection conexao) throws SQLException {
+        PreparedStatement stmt = conexao.prepareStatement
+                ("Update Paciente set num_peso = ? where id_paciente = ?");
+
+        stmt.setFloat(1, paciente.getPeso());
+        stmt.setInt(2, paciente.getId());
+
+        int linhasAfetadas = stmt.executeUpdate();
+        stmt.close();
+        if (linhasAfetadas == 0){
+            throw new SQLException("Nenhum registro encontrado.", "02000", 20001);
+        }
+
+        return true;
     }
 
     public int selecionarIdPorRgPaciente(String rg, Connection conexao) throws SQLException, ClassNotFoundException {
@@ -198,16 +248,14 @@ public class PacienteDAO {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()){
-            double alturaEmDouble = (double) rs.getFloat(7);
-            double pesoEmDouble = (double) rs.getFloat(8);
             String enderecoAtual = rs.getString(3);
 
             Paciente objPaciente = new Paciente();
             objPaciente.setId((rs.getInt(1)));
             objPaciente.setNomePaciente(rs.getString(4));
             objPaciente.setIdade(rs.getInt(5));
-            objPaciente.setAltura(alturaEmDouble);
-            objPaciente.setPeso(pesoEmDouble);
+            objPaciente.setAltura(rs.getFloat(7));
+            objPaciente.setPeso(rs.getFloat(8));
             objPaciente.setSexo(rs.getString(6));
             objPaciente.setRg(rs.getString(9));
             objPaciente.setCpf(rs.getString(10));

@@ -27,7 +27,7 @@ public class AgendamentoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response selecionarAgendamentosRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
         try {
-            ArrayList<Agendamento> listaAgendamentos = (ArrayList<Agendamento>) agendamentoBO.selecionarBO(id);
+            ArrayList<Agendamento> listaAgendamentos = agendamentoBO.selecionarBO(id);
             return Response.ok(listaAgendamentos).build();
         }
         catch (Exception e) {
@@ -39,10 +39,11 @@ public class AgendamentoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response cadastrarAgendamentoRs(Agendamento agendamento, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException, ParseException {
         try {
-            agendamentoBO.cadastrarBO(agendamento);
-            UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-            builder.path(Integer.toString(agendamento.getId()));
-            return Response.created(builder.build()).build();
+            int novo_id_agendamento = agendamentoBO.cadastrarBO(agendamento);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(novo_id_agendamento)
+                    .build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);
@@ -66,7 +67,7 @@ public class AgendamentoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deletarAgendamentoRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
         try {
-            agendamentoBO.deletarBO(id);
+            boolean operacaoBemSucedida = agendamentoBO.deletarBO(id);
             return Response.ok().build();
         }
         catch (Exception e) {

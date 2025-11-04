@@ -20,7 +20,13 @@ public class MedicoBO {
     public ArrayList<Medico> selecionarBO() throws ClassNotFoundException, SQLException {
         medicoDAO = new MedicoDAO();
 
-        return (ArrayList<Medico>) medicoDAO.selecionarMedicos(conexao);
+        return medicoDAO.selecionarMedicos(conexao);
+    }
+
+    public Medico selecionarPorIdBO(int id) throws ClassNotFoundException, SQLException {
+        medicoDAO = new MedicoDAO();
+
+        return medicoDAO.selecionarMedicoPorId(id, conexao);
     }
 
     public String cadastrarBO(Medico medico) throws ClassNotFoundException, SQLException, ParseException {

@@ -183,10 +183,7 @@ public class InstituicaoDAO {
             objInstituicao.setCnpj(rs.getString(5));
 
             // Separar a String em " – "
-            System.out.println("ABUUUUUASFASDF: " + enderecoAtual);
             String[] partes = enderecoAtual.split(" — ");
-            System.out.println("ABUUUUU: " + partes[0]);
-            System.out.println("ABUUUUU: " + partes[1]);
             String logradouroNumero = partes[0];  // "ABCDEFGH 123"
             String resto = partes[1];              // "HIJKL, MNOPQRS - 01234-567"
 

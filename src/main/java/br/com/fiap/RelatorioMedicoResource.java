@@ -26,11 +26,11 @@ public class RelatorioMedicoResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/paciente/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response selecionarRelatoriosMedicosRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+    public Response selecionarRelatoriosMedicosPorIdPacienteRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
         try {
-            ArrayList<RelatorioMedico> listaRelatorios = (ArrayList<RelatorioMedico>) relatorioMedicoBO.selecionarBO(id);
+            ArrayList<RelatorioMedico> listaRelatorios = relatorioMedicoBO.selecionarBO(id);
             return Response.ok(listaRelatorios).build();
         }
         catch (Exception e) {
@@ -42,10 +42,11 @@ public class RelatorioMedicoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response cadastrarRelatorioMedicoRs(RelatorioMedico relatorio, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException, ParseException {
         try {
-            relatorioMedicoBO.cadastrarBO(relatorio);
-            UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-            builder.path(Integer.toString(relatorio.getId()));
-            return Response.created(builder.build()).build();
+            int novo_id_relatorio = relatorioMedicoBO.cadastrarBO(relatorio);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(novo_id_relatorio)
+                    .build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);

@@ -25,7 +25,18 @@ public class ContaPacienteBO {
         return (ArrayList<ContaPaciente>) contaPacienteDAO.selecionarContasPacientes(conexao);
     }
 
-    public String cadastrarBO(ContaPaciente contaPaciente) throws ClassNotFoundException, SQLException, ParseException {
+    public ContaPaciente selecionarPorEmailBO(String email) throws ClassNotFoundException, SQLException {
+        contaPacienteDAO = new ContaPacienteDAO();
+
+        return contaPacienteDAO.selecionarContaPorEmail(conexao, email);
+    }
+    public ContaPaciente selecionarPorIdBO(int id) throws ClassNotFoundException, SQLException {
+        contaPacienteDAO = new ContaPacienteDAO();
+
+        return contaPacienteDAO.selecionarContaPorId(conexao, id);
+    }
+
+    public int cadastrarBO(ContaPaciente contaPaciente) throws ClassNotFoundException, SQLException, ParseException {
         contaPacienteDAO = new ContaPacienteDAO();
 
         return contaPacienteDAO.cadastrarContaPaciente(contaPaciente, conexao);
@@ -35,6 +46,18 @@ public class ContaPacienteBO {
         contaPacienteDAO = new ContaPacienteDAO();
 
         contaPacienteDAO.atualizarContaPaciente(contaPaciente, conexao);
+    }
+
+    public void atualizarEmailBO (ContaPaciente contaPaciente) throws ClassNotFoundException, SQLException {
+        contaPacienteDAO = new ContaPacienteDAO();
+
+        contaPacienteDAO.atualizarEmailContaPaciente(contaPaciente, conexao);
+    }
+
+    public void atualizarSenhaBO (ContaPaciente contaPaciente) throws ClassNotFoundException, SQLException {
+        contaPacienteDAO = new ContaPacienteDAO();
+
+        contaPacienteDAO.atualizarSenhaContaPaciente(contaPaciente, conexao);
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {

@@ -20,10 +20,10 @@ public class RelatorioMedicoBO {
     public ArrayList<RelatorioMedico> selecionarBO(int id) throws ClassNotFoundException, SQLException {
         relatorioMedicoDAO = new RelatorioMedicoDAO();
 
-        return (ArrayList<RelatorioMedico>) relatorioMedicoDAO.selecionarRelatoriosPorPaciente(id, conexao);
+        return relatorioMedicoDAO.selecionarRelatoriosPorPaciente(id, conexao);
     }
 
-    public String cadastrarBO(RelatorioMedico relatorioMedico) throws ClassNotFoundException, SQLException, ParseException {
+    public int cadastrarBO(RelatorioMedico relatorioMedico) throws ClassNotFoundException, SQLException, ParseException {
         relatorioMedicoDAO = new RelatorioMedicoDAO();
 
         return relatorioMedicoDAO.cadastrarRelatorio(relatorioMedico, conexao);

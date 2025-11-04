@@ -35,14 +35,41 @@ public class ContaPacienteResource {
         }
     }
 
+    @GET
+    @Path("/email/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionarContaPacientePorEmailRs(@PathParam("email") String email) throws ClassNotFoundException, SQLException {
+        try {
+            ContaPaciente contaPaciente = contaPacienteBO.selecionarPorEmailBO(email);
+            return Response.ok(contaPaciente).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response selecionarContasPacientePorIdRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+        try {
+            ContaPaciente contaPaciente = contaPacienteBO.selecionarPorIdBO(id);
+            return Response.ok(contaPaciente).build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response cadastrarContaPacienteRs(ContaPaciente contaPaciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException, ParseException {
         try {
-            contaPacienteBO.cadastrarBO(contaPaciente);
-            UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-            builder.path(contaPaciente.getEmail());
-            return Response.created(builder.build()).build();
+            int novo_id_conta = contaPacienteBO.cadastrarBO(contaPaciente);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(novo_id_conta)
+                    .build();
         }
         catch (Exception e) {
             return RequestsExcecoes.ExcecoesConexao(e);
@@ -54,6 +81,32 @@ public class ContaPacienteResource {
     public Response atualizarContaPacienteRs(ContaPaciente contaPaciente, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
         try {
             contaPacienteBO.atualizarBO(contaPaciente);
+            return Response.ok().build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @PUT
+    @Path("/email")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response atualizarEmailContaPacienteRs(ContaPaciente conta, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+        try {
+            contaPacienteBO.atualizarEmailBO(conta);
+            return Response.ok().build();
+        }
+        catch (Exception e) {
+            return RequestsExcecoes.ExcecoesConexao(e);
+        }
+    }
+
+    @PUT
+    @Path("/senha")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response atualizarSenhaContaPacienteRs(ContaPaciente conta, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+        try {
+            contaPacienteBO.atualizarSenhaBO(conta);
             return Response.ok().build();
         }
         catch (Exception e) {
