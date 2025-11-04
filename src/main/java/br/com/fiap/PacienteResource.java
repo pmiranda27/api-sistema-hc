@@ -2,7 +2,6 @@ package br.com.fiap;
 
 import br.com.fiap.beans.Paciente;
 import br.com.fiap.bo.PacienteBO;
-import br.com.fiap.dao.PacienteDAO;
 import br.com.fiap.excecoes.RequestsExcecoes;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -24,7 +23,7 @@ public class PacienteResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response selecionarPacientesRs() throws ClassNotFoundException, SQLException {
         try {
-            ArrayList<Paciente> listaPacientes =  (ArrayList<Paciente>) pacienteBO.selecionarBO();
+            ArrayList<Paciente> listaPacientes =  pacienteBO.selecionarBO();
             return Response.ok(listaPacientes).build();
         }
         catch (Exception e) {

@@ -1,13 +1,10 @@
 package br.com.fiap.dao;
 
 import br.com.fiap.beans.*;
-import br.com.fiap.conexoes.ConexaoFactory;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AgendamentoDAO {
     public Connection conexao;

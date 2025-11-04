@@ -1,11 +1,8 @@
 package br.com.fiap.bo;
 
 import br.com.fiap.beans.Agendamento;
-import br.com.fiap.beans.ContaPaciente;
 import br.com.fiap.conexoes.ConexaoFactory;
 import br.com.fiap.dao.AgendamentoDAO;
-import br.com.fiap.dao.ContaPacienteDAO;
-import br.com.fiap.excecoes.RequestsExcecoes;
 
 import java.sql.Connection;
 import java.sql.SQLException;

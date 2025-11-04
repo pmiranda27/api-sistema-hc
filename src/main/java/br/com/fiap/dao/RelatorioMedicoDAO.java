@@ -1,14 +1,11 @@
 package br.com.fiap.dao;
 
-import br.com.fiap.beans.Instituicao;
 import br.com.fiap.beans.Medico;
 import br.com.fiap.beans.Paciente;
 import br.com.fiap.beans.RelatorioMedico;
-import br.com.fiap.conexoes.ConexaoFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RelatorioMedicoDAO {
     public Connection conexao;
@@ -42,7 +39,7 @@ public class RelatorioMedicoDAO {
     }
 
     // Delete
-    public String deletarRelatorio (int id, Connection conexao) throws SQLException, ClassNotFoundException {
+    public String deletarRelatorio (int id, Connection conexao) throws SQLException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Delete from Relatorio_Medico where id_relatorio_medico = ?");
 
@@ -57,7 +54,7 @@ public class RelatorioMedicoDAO {
         return "Relatório deletado com sucesso!";
     }
     // Delete
-    public String deletarRelatorioPorIdPaciente (int id, Connection conexao) throws SQLException, ClassNotFoundException {
+    public String deletarRelatorioPorIdPaciente (int id, Connection conexao) throws SQLException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Delete from Relatorio_Medico where fk_id_paciente = ?");
 
@@ -73,7 +70,7 @@ public class RelatorioMedicoDAO {
     }
 
     // UpDate
-    public String atualizarRelatorio(RelatorioMedico relatorio, Connection conexao) throws SQLException, ClassNotFoundException {
+    public String atualizarRelatorio(RelatorioMedico relatorio, Connection conexao) throws SQLException {
         PreparedStatement stmt = conexao.prepareStatement
                 ("Update Relatorio_Medico set ds_relatorio = ? where id_relatorio_medico = ?");
 

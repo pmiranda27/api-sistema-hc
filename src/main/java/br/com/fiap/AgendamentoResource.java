@@ -1,14 +1,12 @@
 package br.com.fiap;
 
 import br.com.fiap.beans.Agendamento;
-import br.com.fiap.beans.ContaPaciente;
 import br.com.fiap.bo.AgendamentoBO;
 import br.com.fiap.excecoes.RequestsExcecoes;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import jakarta.ws.rs.ext.Provider;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;

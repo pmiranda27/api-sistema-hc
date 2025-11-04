@@ -2,15 +2,12 @@ package br.com.fiap.dao;
 
 import br.com.fiap.beans.Instituicao;
 import br.com.fiap.beans.Medico;
-import br.com.fiap.beans.Paciente;
-import br.com.fiap.conexoes.ConexaoFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MedicoDAO {
     public Connection conexao;

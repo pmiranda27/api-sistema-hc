@@ -1,12 +1,7 @@
 package br.com.fiap;
 
-import br.com.fiap.beans.ContaPaciente;
 import br.com.fiap.beans.Instituicao;
-import br.com.fiap.beans.Paciente;
-import br.com.fiap.bo.ContaPacienteBO;
 import br.com.fiap.bo.InstituicaoBO;
-import br.com.fiap.bo.PacienteBO;
-import br.com.fiap.dao.PacienteDAO;
 import br.com.fiap.excecoes.RequestsExcecoes;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
