@@ -63,7 +63,7 @@ public class RelatorioMedicoResource {
     @DELETE
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletarRelatorioMedicoPorIdPacienteRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
+    public Response deletarRelatorioMedicoRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
         try {
             relatorioMedicoBO.deletarBO(id);
             return Response.ok().build();

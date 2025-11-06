@@ -23,7 +23,7 @@ public class AgendamentoResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response selecionarAgendamentosRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+    public Response selecionarAgendamentosPorIdRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
         try {
             ArrayList<Agendamento> listaAgendamentos = agendamentoBO.selecionarBO(id);
             return Response.ok(listaAgendamentos).build();

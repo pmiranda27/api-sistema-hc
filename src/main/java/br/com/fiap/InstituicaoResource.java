@@ -35,7 +35,7 @@ public class InstituicaoResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response selecionarInstituicaoRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+    public Response selecionarInstituicaoPeloIdRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
         try {
             Instituicao instituicao = instituicaoBO.selecionarPorIdBO(id);
             return Response.ok(instituicao).build();

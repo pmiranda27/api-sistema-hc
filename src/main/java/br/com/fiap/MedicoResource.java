@@ -47,7 +47,7 @@ public class MedicoResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response cadastrarContaPacienteRs(Medico medico, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException, ParseException {
+    public Response cadastrarMedicoRs(Medico medico, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException, ParseException {
         try {
             medicoBO.cadastrarBO(medico);
             UriBuilder builder = uriInfo.getAbsolutePathBuilder();
@@ -61,7 +61,7 @@ public class MedicoResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response atualizarContaPacienteRs(Medico medico, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+    public Response atualizarMedicoRs(Medico medico, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
         try {
             medicoBO.atualizarBO(medico);
             return Response.ok().build();
@@ -74,7 +74,7 @@ public class MedicoResource {
     @DELETE
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletarContaPacientePorIdPacienteRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
+    public Response deletarMedicoRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
         try {
             medicoBO.deletarBO(id);
             return Response.ok().build();

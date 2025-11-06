@@ -22,7 +22,7 @@ public class ConvenioMedicoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response selecionaConvenioMedicoRs() throws ClassNotFoundException, SQLException {
+    public Response selecionarConveniosMedicosRs() throws ClassNotFoundException, SQLException {
         try {
             ArrayList<ConvenioMedico> listaConvenios = convenioMedicoBO.selecionarBO();
             return Response.ok(listaConvenios).build();
@@ -76,7 +76,7 @@ public class ConvenioMedicoResource {
     @DELETE
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletarConvenioMedicoPorIdPacienteRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
+    public Response deletarConvenioMedicoRs(@PathParam("id") int id) throws ClassNotFoundException, SQLException{
         try {
             convenioMedicoBO.deletarBO(id);
             return Response.ok().build();
