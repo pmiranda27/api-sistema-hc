@@ -21,8 +21,8 @@ public class PacienteDAO {
         Endereco enderecoPaciente = paciente.getEndereco();
         String numero = Integer.toString(enderecoPaciente.getNumero());
 
-        float alturaFloat = (float) paciente.getAltura();
-        float pesoFloat = (float) paciente.getPeso();
+        float alturaFloat = paciente.getAltura();
+        float pesoFloat = paciente.getPeso();
 
         int novoId = gerarNovoId(conexao);
 
@@ -261,7 +261,7 @@ public class PacienteDAO {
 
 
             // Separar a String em " – "
-            String[] partes = enderecoAtual.split(" - ");
+            String[] partes = enderecoAtual.split(" — ");
             String logradouroNumero = partes[0];  // "ABCDEFGH 123"
             String resto = partes[1];              // "HIJKL, MNOPQRS - 01234-567"
 
