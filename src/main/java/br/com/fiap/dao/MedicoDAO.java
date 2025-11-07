@@ -3,10 +3,7 @@ package br.com.fiap.dao;
 import br.com.fiap.beans.Instituicao;
 import br.com.fiap.beans.Medico;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class MedicoDAO {
@@ -138,8 +135,8 @@ public class MedicoDAO {
             objMedico.setValorHora(rs.getInt(6));
 
 
-            Instituicao instituicao = instituicaoDAO.selecionarInstituicaoPorId(rs.getInt(7), conexao);
-
+            int idInstituicao = rs.getInt(7);
+            Instituicao instituicao = instituicaoDAO.selecionarInstituicaoPorId(idInstituicao, conexao);
             objMedico.setEmpregador(instituicao);
 
             listaMedicos.add(objMedico);

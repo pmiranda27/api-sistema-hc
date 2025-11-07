@@ -100,7 +100,7 @@ public class InstituicaoDAO {
 
             String enderecoAtual = rs.getString(6);
             // Separar a String em " – "
-            String[] partes = enderecoAtual.split(" — ");
+            String[] partes = enderecoAtual.split("\\s*—\\s*");
             String logradouroNumero = partes[0]; // "ABCDEFGH 123"
             String resto = partes[1]; // "HIJKL, MNOPQRS - 01234-567"
 
