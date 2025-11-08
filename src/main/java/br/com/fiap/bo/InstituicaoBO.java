@@ -20,30 +20,91 @@ public class InstituicaoBO {
     public ArrayList<Instituicao> selecionarBO() throws ClassNotFoundException, SQLException {
         instituicaoDAO = new InstituicaoDAO();
 
-        return instituicaoDAO.selecionarInstituicoes(conexao);
+        try {
+            return instituicaoDAO.selecionarInstituicoes(conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return instituicaoDAO.selecionarInstituicoes(conexao);
+                }
+            }
+            throw e;
+        }
+
     }
 
     public Instituicao selecionarPorIdBO(int id) throws ClassNotFoundException, SQLException {
         instituicaoDAO = new InstituicaoDAO();
 
-        return instituicaoDAO.selecionarInstituicaoPorId(id, conexao);
+        try {
+            return instituicaoDAO.selecionarInstituicaoPorId(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return instituicaoDAO.selecionarInstituicaoPorId(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public String cadastrarBO(Instituicao instituicao) throws ClassNotFoundException, SQLException, ParseException {
         instituicaoDAO = new InstituicaoDAO();
 
-        return instituicaoDAO.criarInstituicao(instituicao, conexao);
+        try {
+            return instituicaoDAO.criarInstituicao(instituicao, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return instituicaoDAO.criarInstituicao(instituicao, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarBO (Instituicao instituicao) throws ClassNotFoundException, SQLException {
         instituicaoDAO = new InstituicaoDAO();
 
-        instituicaoDAO.atualizarInstituicao(instituicao, conexao);
+        try {
+            instituicaoDAO.atualizarInstituicao(instituicao, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    instituicaoDAO.atualizarInstituicao(instituicao, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {
         instituicaoDAO = new InstituicaoDAO();
 
-        instituicaoDAO.deletarInstituicao(id, conexao);
+        try {
+            instituicaoDAO.deletarInstituicao(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    instituicaoDAO.deletarInstituicao(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 }

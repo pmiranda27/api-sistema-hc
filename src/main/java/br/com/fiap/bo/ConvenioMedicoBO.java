@@ -21,30 +21,90 @@ public class ConvenioMedicoBO {
     public ArrayList<ConvenioMedico> selecionarBO() throws ClassNotFoundException, SQLException {
         convenioMedicoDAO = new ConvenioDAO();
 
-        return convenioMedicoDAO.selecionarConvenios(conexao);
+        try {
+            return convenioMedicoDAO.selecionarConvenios(conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return convenioMedicoDAO.selecionarConvenios(conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public ConvenioMedico selecionarPorIdPacienteBO(int id) throws ClassNotFoundException, SQLException {
         convenioMedicoDAO = new ConvenioDAO();
 
-        return convenioMedicoDAO.selecionarConvenioPorIdPaciente(id, conexao);
+        try {
+            return convenioMedicoDAO.selecionarConvenioPorIdPaciente(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return convenioMedicoDAO.selecionarConvenioPorIdPaciente(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public int cadastrarBO(ConvenioMedico convenioMedico) throws ClassNotFoundException, SQLException, ParseException {
         convenioMedicoDAO = new ConvenioDAO();
 
-        return convenioMedicoDAO.cadastrarConvenio(convenioMedico, conexao);
+        try {
+            return convenioMedicoDAO.cadastrarConvenio(convenioMedico, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return convenioMedicoDAO.cadastrarConvenio(convenioMedico, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarBO (ConvenioMedico convenioMedico) throws ClassNotFoundException, SQLException {
         convenioMedicoDAO = new ConvenioDAO();
 
-        convenioMedicoDAO.atualizarConvenio(convenioMedico, conexao);
+        try {
+            convenioMedicoDAO.atualizarConvenio(convenioMedico, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    convenioMedicoDAO.atualizarConvenio(convenioMedico, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {
         convenioMedicoDAO = new ConvenioDAO();
 
-        convenioMedicoDAO.deletarConvenio(id, conexao);
+        try {
+            convenioMedicoDAO.deletarConvenio(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    convenioMedicoDAO.deletarConvenio(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 }

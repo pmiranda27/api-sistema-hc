@@ -20,24 +20,72 @@ public class RelatorioMedicoBO {
     public ArrayList<RelatorioMedico> selecionarBO(int id) throws ClassNotFoundException, SQLException {
         relatorioMedicoDAO = new RelatorioMedicoDAO();
 
-        return relatorioMedicoDAO.selecionarRelatoriosPorPaciente(id, conexao);
+        try {
+            return relatorioMedicoDAO.selecionarRelatoriosPorPaciente(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return relatorioMedicoDAO.selecionarRelatoriosPorPaciente(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public int cadastrarBO(RelatorioMedico relatorioMedico) throws ClassNotFoundException, SQLException, ParseException {
         relatorioMedicoDAO = new RelatorioMedicoDAO();
 
-        return relatorioMedicoDAO.cadastrarRelatorio(relatorioMedico, conexao);
+        try {
+            return relatorioMedicoDAO.cadastrarRelatorio(relatorioMedico, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return relatorioMedicoDAO.cadastrarRelatorio(relatorioMedico, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarBO (RelatorioMedico relatorioMedico) throws ClassNotFoundException, SQLException {
         relatorioMedicoDAO = new RelatorioMedicoDAO();
 
-        relatorioMedicoDAO.atualizarRelatorio(relatorioMedico, conexao);
+        try {
+            relatorioMedicoDAO.atualizarRelatorio(relatorioMedico, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    relatorioMedicoDAO.atualizarRelatorio(relatorioMedico, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {
         relatorioMedicoDAO = new RelatorioMedicoDAO();
 
-        relatorioMedicoDAO.deletarRelatorio(id, conexao);
+        try {
+            relatorioMedicoDAO.deletarRelatorio(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    relatorioMedicoDAO.deletarRelatorio(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 }

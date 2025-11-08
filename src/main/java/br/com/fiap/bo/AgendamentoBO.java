@@ -20,24 +20,71 @@ public class AgendamentoBO {
     public ArrayList<Agendamento> selecionarBO(int id) throws ClassNotFoundException, SQLException {
         agendamentoDAO = new AgendamentoDAO();
 
-        return agendamentoDAO.selecionarAgendamentosPorPaciente(id, conexao);
+        try {
+            return agendamentoDAO.selecionarAgendamentosPorPaciente(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return agendamentoDAO.selecionarAgendamentosPorPaciente(id, conexao);
+                }
+            }
+        }
+        return new ArrayList<>();
     }
 
     public int cadastrarBO(Agendamento agendamento) throws ClassNotFoundException, SQLException, ParseException {
         agendamentoDAO = new AgendamentoDAO();
 
-        return agendamentoDAO.cadastrarAgendamento(agendamento, conexao);
+        try {
+            return agendamentoDAO.cadastrarAgendamento(agendamento, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return agendamentoDAO.cadastrarAgendamento(agendamento, conexao);
+                }
+            }
+        }
+        return 0;
     }
 
     public void atualizarBO (Agendamento agendamento) throws ClassNotFoundException, SQLException {
         agendamentoDAO = new AgendamentoDAO();
 
-        agendamentoDAO.atualizarAgendamento(agendamento, conexao);
+        try {
+            agendamentoDAO.atualizarAgendamento(agendamento, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    agendamentoDAO.atualizarAgendamento(agendamento, conexao);
+                }
+            }
+        }
     }
 
     public boolean deletarBO(int id)throws ClassNotFoundException, SQLException {
         agendamentoDAO = new AgendamentoDAO();
 
-        return agendamentoDAO.deletarAgendamento(id, conexao);
+        try {
+            return agendamentoDAO.deletarAgendamento(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return agendamentoDAO.deletarAgendamento(id, conexao);
+                }
+            }
+        }
+        return false;
     }
 }

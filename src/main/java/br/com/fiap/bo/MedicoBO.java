@@ -20,30 +20,90 @@ public class MedicoBO {
     public ArrayList<Medico> selecionarBO() throws ClassNotFoundException, SQLException {
         medicoDAO = new MedicoDAO();
 
-        return medicoDAO.selecionarMedicos(conexao);
+        try {
+            return medicoDAO.selecionarMedicos(conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return medicoDAO.selecionarMedicos(conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public Medico selecionarPorIdBO(int id) throws ClassNotFoundException, SQLException {
         medicoDAO = new MedicoDAO();
 
-        return medicoDAO.selecionarMedicoPorId(id, conexao);
+        try {
+            return medicoDAO.selecionarMedicoPorId(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return medicoDAO.selecionarMedicoPorId(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public String cadastrarBO(Medico medico) throws ClassNotFoundException, SQLException, ParseException {
         medicoDAO = new MedicoDAO();
 
-        return medicoDAO.cadastrarMedico(medico, conexao);
+        try {
+            return medicoDAO.cadastrarMedico(medico, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return medicoDAO.cadastrarMedico(medico, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarBO (Medico medico) throws ClassNotFoundException, SQLException {
         medicoDAO = new MedicoDAO();
 
-        medicoDAO.atualizarMedico(medico, conexao);
+        try {
+            medicoDAO.atualizarMedico(medico, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    medicoDAO.atualizarMedico(medico, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {
         medicoDAO = new MedicoDAO();
 
-        medicoDAO.deletarMedico(id, conexao);
+        try{
+            medicoDAO.deletarMedico(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    medicoDAO.deletarMedico(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 }

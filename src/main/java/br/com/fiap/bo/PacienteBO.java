@@ -19,53 +19,156 @@ public class PacienteBO {
     public ArrayList<Paciente> selecionarBO() throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
 
-        return (ArrayList<Paciente>) pacienteDAO.selecionarPacientes(conexao);
+        try {
+            return pacienteDAO.selecionarPacientes(conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return pacienteDAO.selecionarPacientes(conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public int selecionarIdPorRgBO(String rg) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
 
-        return  pacienteDAO.selecionarIdPorRgPaciente(rg, conexao);
+        try {
+            return pacienteDAO.selecionarIdPorRgPaciente(rg, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return pacienteDAO.selecionarIdPorRgPaciente(rg, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public Paciente selecionarPorId(int id) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
 
-        return  pacienteDAO.selecionarPacientePorId(id, conexao);
+        try {
+            return pacienteDAO.selecionarPacientePorId(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return pacienteDAO.selecionarPacientePorId(id, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public int cadastrarBO(Paciente paciente) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
-        return pacienteDAO.cadastrarPaciente(paciente, conexao);
+
+        try {
+            return pacienteDAO.cadastrarPaciente(paciente, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    return pacienteDAO.cadastrarPaciente(paciente, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarBO (Paciente paciente) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
 
-        pacienteDAO.atualizarPaciente(paciente, conexao);
+        try {
+            pacienteDAO.atualizarPaciente(paciente, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    pacienteDAO.atualizarPaciente(paciente, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarTelefoneBO (Paciente paciente) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
-
-        pacienteDAO.atualizarTelefonePaciente(paciente, conexao);
+        try {
+            pacienteDAO.atualizarTelefonePaciente(paciente, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    pacienteDAO.atualizarTelefonePaciente(paciente, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarAlturaBO (Paciente paciente) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
-
-        pacienteDAO.atualizarAlturaPaciente(paciente, conexao);
+        try {
+            pacienteDAO.atualizarAlturaPaciente(paciente, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    pacienteDAO.atualizarAlturaPaciente(paciente, conexao);
+                }
+            }
+            throw e;
+        }
     }
 
     public void atualizarPesoBO (Paciente paciente) throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
-
-        pacienteDAO.atualizarPesoPaciente(paciente, conexao);
+        try {
+            pacienteDAO.atualizarPesoPaciente(paciente, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    pacienteDAO.atualizarPesoPaciente(paciente, conexao);
+                }
+            }
+        }
     }
 
     public void deletarBO(int id)throws ClassNotFoundException, SQLException {
         pacienteDAO = new PacienteDAO();
-
-        pacienteDAO.deletarPaciente(id, conexao);
+        try {
+            pacienteDAO.deletarPaciente(id, conexao);
+        }
+        catch (Exception e){
+            if (e instanceof SQLException sqlExcecao){
+                if (sqlExcecao.getErrorCode() == 17008) {
+                    this.conexao.close();
+                    this.conexao = new ConexaoFactory().conexao();
+                    pacienteDAO.deletarPaciente(id, conexao);
+                }
+            }
+        }
     }
 }
