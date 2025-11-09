@@ -227,9 +227,9 @@ A API centraliza e simplifica o acesso a informações médicas, permitindo um a
 
 👥 Autores
 
-Pedro Miranda — **RM:** 562682
-André Rosa Colombo — **RM:** 563112
-José Diogo da Silva Neves — **RM:** 562341
+Pedro Miranda — **RM:** 562682  
+André Rosa Colombo — **RM:** 563112  
+José Diogo da Silva Neves — **RM:** 562341  
 
 ---
 
