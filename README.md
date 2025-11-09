@@ -22,6 +22,7 @@ O objetivo principal é **reduzir o absenteísmo** em consultas médicas híbrid
 
 ## 🧩 Estrutura do Projeto
 
+```
 src/
 ├── beans/
 │ ├── Agendamento.java
@@ -66,7 +67,7 @@ src/
 │
 └── excecoes/
 └── RequestsExcecoes.java
-
+```
 ---
 
 ## 🚀 Funcionalidades Principais
